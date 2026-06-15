@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="keywords" content="mdlook,md,markdown,markdown-editor,markdown-viewer,wechat,official-account" />
+    <meta name="description" content="mdlook · Markdown 查看器与公众号排版工具 | 左看源码右预览，一键复制到公众号" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <title>mdlook · Markdown 查看与公众号排版</title>
+    <link rel="shortcut icon" href="/favicon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/favicon.png" />
+    <style>
+      .loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 99999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        width: 100vw;
+        height: 100vh;
+        color: #181716;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: radial-gradient(circle at 50% 42%, rgb(221 116 82 / 10%), transparent 30%), #fffdfb;
+      }
+
+      .loading__icon {
+        width: 84px;
+        height: 84px;
+        border-radius: 20px;
+        box-shadow: 0 18px 40px rgb(60 40 30 / 12%);
+      }
+
+      .loading__brand {
+        margin-top: 8px;
+        font-size: 20px;
+        line-height: 1.2;
+        font-weight: 700;
+      }
+
+      .loading__desc {
+        color: #6f6863;
+        font-size: 13px;
+        line-height: 1.4;
+      }
+
+      .loading.dark {
+        color: #f8f5f2;
+        background: radial-gradient(circle at 50% 42%, rgb(221 116 82 / 18%), transparent 30%), #141211;
+      }
+
+      .loading.dark .loading__desc {
+        color: #bcb4ae;
+      }
+
+      .loading__bar {
+        position: relative;
+        width: 96px;
+        height: 3px;
+        margin-top: 10px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgb(221 116 82 / 16%);
+      }
+
+      .loading__bar::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -40%;
+        width: 40%;
+        height: 100%;
+        border-radius: inherit;
+        background: #dd7452;
+        animation: loading-bar 1.2s ease-in-out infinite;
+      }
+
+      .loading .timeout-tip {
+        display: none;
+        max-width: 320px;
+        margin: 22px 24px 0;
+        color: #d94b30;
+        font-size: 13px;
+        line-height: 1.6;
+        text-align: center;
+      }
+
+      @keyframes loading-bar {
+        0% {
+          transform: translateX(0);
+        }
+
+        100% {
+          transform: translateX(350%);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <noscript>
+      <strong>Please enable JavaScript to continue.</strong>
+    </noscript>
+    <div id="app">
+      <div class="loading">
+        <img class="loading__icon" src="/favicon.png" alt="mdlook" />
+        <strong class="loading__brand">mdlook</strong>
+        <span class="loading__desc">看 Markdown，发公众号</span>
+        <span class="loading__bar"></span>
+        <p class="timeout-tip">加载时间过长，请尝试刷新页面或按 F12 查看控制台是否有异常信息</p>
+      </div>
+    </div>
+    <script>
+      const theme = localStorage.getItem('vueuse-color-scheme')
+      if (theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.querySelector('.loading').classList.add('dark')
+      }
+
+      setTimeout(() => {
+        const tip = document.querySelector('.loading .timeout-tip')
+        if (tip) {
+          tip.style.display = 'block'
+        }
+      }, 30000)
+    </script>
+    <script>
+      window.MathJax = {
+        tex: { tags: 'ams' },
+        svg: { fontCache: 'none' },
+      }
+    </script>
+    <script
+      id="MathJax-script"
+      src="https://cdn-doocs.oss-cn-shenzhen.aliyuncs.com/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="/src/sidepanel.ts"></script>
+  </body>
+</html>
