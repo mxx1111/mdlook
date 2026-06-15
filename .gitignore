@@ -1,0 +1,70 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+dist
+
+# misc
+.DS_Store
+.env.local
+.dev.vars
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# mockm
+httpData
+
+public/upload/**
+!public/upload/*.gitkeep
+.history
+
+# Package manager lock file
+package-lock.json
+yarn.lock
+# pnpm-lock.yaml
+auto-imports.d.ts
+components.d.ts
+
+.wxt
+.output
+web-ext.config.ts
+.wrangler
+
+# Claude Code local settings
+.claude/settings.local.json
+# Junction/symlink to .agents/skills — run `pnpm link-claude-skills` after clone
+.claude/skills
+
+# 个人部署备忘（不开源）
+DEPLOY.local.md
+
+# vite-plugin-pwa dev output
+dev-dist
+
+# uTools build artifacts
+apps/utools/dist
+apps/utools/release
+
+# 本地打包产物（安装包走 Release，不进仓库）
+dist-release/

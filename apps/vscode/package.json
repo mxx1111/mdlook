@@ -1,0 +1,117 @@
+{
+  "publisher": "doocs",
+  "name": "doocs-md",
+  "displayName": "doocs-md",
+  "version": "0.0.1",
+  "description": "Preview WeChat-formatted Markdown with doocs/md renderer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doocs/md"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./dist/extension.js",
+  "engines": {
+    "vscode": "^1.120.0"
+  },
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "markdown-sidebar",
+          "title": "Markdown Preview",
+          "icon": "./public/icon-256-gray.png"
+        }
+      ]
+    },
+    "views": {
+      "markdown-sidebar": [
+        {
+          "id": "markdown.preview.view",
+          "name": "Preview",
+          "icon": "./public/icon-256-gray.png"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "markdown.preview",
+        "title": "Open Markdown Preview",
+        "icon": {
+          "light": "./public/icon-256-gray.png",
+          "dark": "./public/icon-256-gray.png"
+        }
+      },
+      {
+        "command": "markdown.setFontSize",
+        "title": "Set Font Size",
+        "category": "Markdown Preview"
+      },
+      {
+        "command": "markdown.setTheme",
+        "title": "Set Theme",
+        "category": "Markdown Preview"
+      },
+      {
+        "command": "markdown.setPrimaryColor",
+        "title": "Set Primary Color",
+        "category": "Markdown Preview"
+      },
+      {
+        "command": "markdown.setFontFamily",
+        "title": "Set Font Family",
+        "category": "Markdown Preview"
+      },
+      {
+        "command": "markdown.toggleCountStatus",
+        "title": "Toggle Count Status",
+        "category": "Markdown Preview"
+      },
+      {
+        "command": "markdown.toggleMacCodeBlock",
+        "title": "Toggle Mac Code Block",
+        "category": "Markdown Preview"
+      },
+      {
+        "command": "markdown.toggleCiteStatus",
+        "title": "Toggle Cite Status",
+        "category": "Markdown Preview"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "markdown.preview",
+          "group": "navigation",
+          "when": "editorLangId == markdown"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "compile": "webpack && node scripts/copy-runtime-deps.mjs",
+    "watch": "node scripts/copy-runtime-deps.mjs && webpack --watch",
+    "build": "webpack --mode production --devtool hidden-source-map && node scripts/copy-runtime-deps.mjs",
+    "package": "vsce package --no-dependencies --allow-package-secrets github",
+    "test": "npm run build && node --import tsx/esm scripts/smoke-test.mjs && node scripts/verify-preview.mjs && node scripts/verify-activate.mjs && node scripts/verify-vsix-deps.mjs"
+  },
+  "dependencies": {
+    "@md/core": "workspace:*",
+    "@md/shared": "workspace:*",
+    "@types/webpack": "^5.28.5",
+    "isomorphic-dompurify": "^3.16.0",
+    "postcss": "^8.5.15",
+    "ts-loader": "^9.6.0",
+    "tsconfig-paths-webpack-plugin": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.3",
+    "@types/vscode": "^1.120.0",
+    "@vscode/vsce": "^3.9.2",
+    "tsx": "^4.22.4",
+    "webpack": "^5.107.2",
+    "webpack-cli": "^7.0.3"
+  }
+}
