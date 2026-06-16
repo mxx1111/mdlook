@@ -1,0 +1,183 @@
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
+import ConfirmDialog from '@/components/confirm-dialog/ConfirmDialog.vue'
+import DesktopSidebar from '@/components/desktop/DesktopSidebar.vue'
+import CodemirrorEditor from '@/components/editor/CodemirrorEditor.vue'
+import { Toaster } from '@/components/ui/sonner'
+import WelcomeGuideDialog from '@/components/WelcomeGuideDialog.vue'
+import { isAccountConfigured } from '@/services/account/config'
+import { isSyncUiEnabled } from '@/services/sync/client'
+import { useAuthStore } from '@/stores/auth'
+import { useDesktopStore } from '@/stores/desktop'
+import { useSyncStore } from '@/stores/sync'
+import { useUIStore } from '@/stores/ui'
+
+const uiStore = useUIStore()
+const { isDark } = storeToRefs(uiStore)
+
+const desktopStore = useDesktopStore()
+
+const authStore = useAuthStore()
+const syncStore = useSyncStore()
+
+const isUtools = ref(false)
+
+/** 初始化账户与云同步 */
+async function bootstrapApp() {
+  if (isAccountConfigured())
+    await authStore.bootstrap()
+
+  if (!isSyncUiEnabled() || !authStore.isLoggedIn)
+    return
+
+  syncStore.startAutoSyncWatcher()
+  await syncStore.sync()
+}
+
+onMounted(() => {
+  // 检测是否为 Utools 环境
+  isUtools.value = !!(window as any).__MD_UTOOLS__
+  if (isUtools.value) {
+    document.documentElement.classList.add(`is-utools`)
+  }
+
+  bootstrapApp()
+
+  // 桌面端（Tauri）：处理双击 .md 打开、监听运行时打开事件
+  if (desktopStore.isTauri) {
+    document.documentElement.classList.add(`is-tauri`)
+    desktopStore.init()
+  }
+
+  // 若 URL 带有 open 参数（Markdown 链接），打开导入对话框并自动导入
+  const params = new URLSearchParams(window.location.search)
+  const openUrl = params.get(`open`)
+  if (openUrl && URL.canParse(openUrl) && /^https?:\/\//i.test(openUrl)) {
+    uiStore.importMdOpenUrl = openUrl
+    uiStore.isShowImportMdDialog = true
+    params.delete(`open`)
+    const newSearch = params.toString()
+    const newUrl = window.location.pathname + (newSearch ? `?${newSearch}` : ``) + window.location.hash
+    window.history.replaceState({}, ``, newUrl)
+  }
+
+  window.addEventListener(`mdlook:open-style-panel`, () => {
+    uiStore.isOpenRightSlider = true
+  })
+})
+</script>
+
+<template>
+  <AppSplash />
+
+  <div class="relative flex h-full w-full">
+    <DesktopSidebar v-if="desktopStore.isTauri" />
+    <div class="relative min-w-0 flex-1">
+      <CodemirrorEditor />
+    </div>
+  </div>
+
+  <ConfirmDialog />
+  <WelcomeGuideDialog />
+
+  <Toaster
+    rich-colors
+    position="top-center"
+    :duration="1200"
+    :visible-toasts="1"
+    :theme="isDark ? 'dark' : 'light'"
+  />
+</template>
+
+<style lang="less">
+html,
+body,
+#app {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+// 抵消下拉菜单开启时带来的样式
+body {
+  pointer-events: initial !important;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 6px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background-color: #dadada;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background-color: #424242;
+}
+
+// Utools 模式下隐藏所有滚动条
+.is-utools {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  // Firefox
+  * {
+    scrollbar-width: none;
+  }
+
+  // IE and Edge
+  * {
+    -ms-overflow-style: none;
+  }
+}
+
+/* CSS-hints */
+.CodeMirror-hints {
+  position: absolute;
+  z-index: 10;
+  overflow-y: auto;
+  margin: 0;
+  padding: 2px;
+  border-radius: 4px;
+  max-height: 20em;
+  min-width: 200px;
+  font-size: 12px;
+  font-family: monospace;
+
+  color: #333333;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+}
+
+.CodeMirror-hint {
+  margin-top: 10px;
+  padding: 4px 6px;
+  border-radius: 2px;
+  white-space: pre;
+  color: #000000;
+  cursor: pointer;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+  &:hover {
+    background: #f0f0f0;
+  }
+}
+.search-match {
+  background-color: #ffeb3b; /* 所有匹配项颜色 */
+}
+.current-match {
+  background-color: #ff5722; /* 当前匹配项更鲜艳的颜色 */
+}
+</style>

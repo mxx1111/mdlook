@@ -1,0 +1,93 @@
+<script setup lang="ts">
+import { BookText, Heart, HelpCircle, MessageSquare, Tag } from '@lucide/vue'
+import { isFundFeatureEnabled } from '@/services/product/features'
+
+const props = withDefaults(defineProps<{
+  asSub?: boolean
+}>(), {
+  asSub: false,
+})
+
+const emit = defineEmits(['openAbout', 'openFund', 'openMarkdownHelp'])
+
+const { asSub } = toRefs(props)
+const showFundUi = isFundFeatureEnabled()
+
+function openAboutDialog() {
+  emit('openAbout')
+}
+
+function openFundDialog() {
+  emit('openFund')
+}
+
+function openMarkdownHelp() {
+  emit('openMarkdownHelp')
+}
+
+function openFeedback() {
+  window.open('https://github.com/doocs/md/issues', '_blank')
+}
+
+function openReleases() {
+  window.open('https://github.com/doocs/md/releases', '_blank')
+}
+</script>
+
+<template>
+  <!-- 作为 MenubarSub 使用 -->
+  <MenubarSub v-if="asSub">
+    <MenubarSubTrigger>
+      帮助
+    </MenubarSubTrigger>
+    <MenubarSubContent>
+      <MenubarItem @click="openMarkdownHelp()">
+        <BookText class="mr-2 h-4 w-4" />
+        语法帮助
+      </MenubarItem>
+      <MenubarItem @click="openFeedback()">
+        <MessageSquare class="mr-2 h-4 w-4" />
+        反馈
+      </MenubarItem>
+      <MenubarItem @click="openReleases()">
+        <Tag class="mr-2 h-4 w-4" />
+        版本历史
+      </MenubarItem>
+      <MenubarItem @click="openAboutDialog()">
+        <HelpCircle class="mr-2 h-4 w-4" />
+        关于
+      </MenubarItem>
+      <MenubarItem v-if="showFundUi" @click="openFundDialog()">
+        <Heart class="mr-2 h-4 w-4" />
+        赞赏
+      </MenubarItem>
+    </MenubarSubContent>
+  </MenubarSub>
+
+  <!-- 作为 MenubarMenu 使用（默认） -->
+  <MenubarMenu v-else>
+    <MenubarTrigger>帮助</MenubarTrigger>
+    <MenubarContent align="start">
+      <MenubarItem @click="openMarkdownHelp()">
+        <BookText class="mr-2 h-4 w-4" />
+        语法帮助
+      </MenubarItem>
+      <MenubarItem @click="openFeedback()">
+        <MessageSquare class="mr-2 h-4 w-4" />
+        反馈
+      </MenubarItem>
+      <MenubarItem @click="openReleases()">
+        <Tag class="mr-2 h-4 w-4" />
+        版本历史
+      </MenubarItem>
+      <MenubarItem @click="openAboutDialog()">
+        <HelpCircle class="mr-2 h-4 w-4" />
+        关于
+      </MenubarItem>
+      <MenubarItem v-if="showFundUi" @click="openFundDialog()">
+        <Heart class="mr-2 h-4 w-4" />
+        赞赏
+      </MenubarItem>
+    </MenubarContent>
+  </MenubarMenu>
+</template>
