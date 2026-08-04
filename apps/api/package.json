@@ -16,13 +16,13 @@
   "dependencies": {
     "@hono/node-server": "^1.19.14",
     "@md/shared": "workspace:*",
-    "hono": "^4.12.25"
+    "hono": "^4.12.33"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "4.20260613.1",
     "@types/node": "^25.9.3",
     "esbuild": "^0.28.1",
     "typescript": "~6.0.3",
-    "wrangler": "^4.100.0"
+    "wrangler": "^4.118.0"
   }
 }
