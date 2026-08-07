@@ -1,0 +1,576 @@
+/**
+ * Claude 主题（仿 claude.ai 官网风格）
+ * 米白底 #FAF9F5 + 黏土橙 #CC785C + 暖黑 #141413，衬线标题，克制留白。
+ * 签名色直接写入，选中本主题即为完整 Claude 风，无需再调主色。
+ * 注：整页米白背景在「预览/导出」中生效；微信公众号可能强制白底，属正常。
+ * 按 Alt/Option + Shift + F 可格式化。
+ */
+
+/* ==================== 容器：暖米白背景 ==================== */
+#output,
+.container {
+  background: #faf9f5;
+  padding: 18px 0;
+  color: #141413;
+  box-sizing: border-box;
+}
+
+/* ==================== 一级标题 ==================== */
+h1 {
+  display: block;
+  padding: 0 0 0.4em;
+  margin: 1.5em 8px 1.4em;
+  color: #141413;
+  font-family: 'Noto Serif SC', 'Songti SC', 'STSong', Georgia, serif;
+  font-size: calc(var(--md-font-size) * 1.55);
+  font-weight: 700;
+  line-height: 1.32;
+  letter-spacing: 0;
+  text-align: left;
+  border-bottom: 1px solid #e5e1d6;
+}
+
+/* ==================== 二级标题 ==================== */
+h2 {
+  display: block;
+  padding: 0 0 0 0.6em;
+  border-left: 4px solid #cc785c;
+  border-radius: 0;
+  background: transparent;
+  margin: 2.3em 8px 1em;
+  color: #141413;
+  font-family: 'Noto Serif SC', 'Songti SC', 'STSong', Georgia, serif;
+  font-size: calc(var(--md-font-size) * 1.28);
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+/* ==================== 三级标题 ==================== */
+h3 {
+  display: table;
+  padding: 0 0 0.28em;
+  border: none;
+  border-bottom: 2px solid #cc785c;
+  background: transparent;
+  margin: 1.9em 8px 0.85em;
+  color: #141413;
+  font-family: 'Noto Serif SC', 'Songti SC', 'STSong', Georgia, serif;
+  font-size: calc(var(--md-font-size) * 1.16);
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+/* ==================== 四级标题 ==================== */
+h4 {
+  margin: 1.6em 8px 0.45em;
+  color: #4a443c;
+  font-size: calc(var(--md-font-size) * 1.04);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+/* ==================== 五级标题 ==================== */
+h5 {
+  margin: 1.4em 8px 0.4em;
+  color: #5f554c;
+  font-size: var(--md-font-size);
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+/* ==================== 六级标题 ==================== */
+h6 {
+  margin: 1.2em 8px 0.35em;
+  color: #8a7f72;
+  font-size: calc(var(--md-font-size) * 0.94);
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+/* ==================== 段落 ==================== */
+p {
+  margin: 1em 8px;
+  line-height: 1.75;
+  letter-spacing: 0.12em;
+  color: #31312f;
+}
+
+/* ==================== 引用块 ==================== */
+blockquote {
+  font-style: normal;
+  padding: 0.2em 0 0.2em 1.1em;
+  border-left: 3px solid #cc785c;
+  border-radius: 0;
+  background: transparent;
+  color: #6b655c;
+  margin: 1.6em 8px;
+}
+
+blockquote > p {
+  display: block;
+  font-size: 1em;
+  line-height: 1.75;
+  letter-spacing: 0.12em;
+  color: #6b655c;
+  margin: 0;
+}
+
+/* ==================== GFM 警告块 ==================== */
+.alert-title-note,
+.alert-title-tip,
+.alert-title-info,
+.alert-title-important,
+.alert-title-warning,
+.alert-title-caution,
+.alert-title-abstract,
+.alert-title-summary,
+.alert-title-tldr,
+.alert-title-todo,
+.alert-title-success,
+.alert-title-done,
+.alert-title-question,
+.alert-title-help,
+.alert-title-faq,
+.alert-title-failure,
+.alert-title-fail,
+.alert-title-missing,
+.alert-title-danger,
+.alert-title-error,
+.alert-title-bug,
+.alert-title-example,
+.alert-title-quote,
+.alert-title-cite,
+.alert-title-theorem,
+.alert-title-lemma,
+.alert-title-corollary,
+.alert-title-proposition,
+.alert-title-definition,
+.alert-title-axiom,
+.alert-title-postulate,
+.alert-title-assumption,
+.alert-title-proof,
+.alert-title-remark,
+.alert-title-custom {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.alert-title-note {
+  color: #478be6;
+}
+
+.alert-title-tip {
+  color: #57ab5a;
+}
+
+.alert-title-info {
+  color: #93c5fd;
+}
+
+.alert-title-important {
+  color: #986ee2;
+}
+
+.alert-title-warning {
+  color: #c69026;
+}
+
+.alert-title-caution {
+  color: #e5534b;
+}
+
+.alert-title-abstract,
+.alert-title-summary,
+.alert-title-tldr {
+  color: #00bfff;
+}
+
+.alert-title-todo {
+  color: #478be6;
+}
+
+.alert-title-success,
+.alert-title-done {
+  color: #57ab5a;
+}
+
+.alert-title-question,
+.alert-title-help,
+.alert-title-faq {
+  color: #c69026;
+}
+
+.alert-title-failure,
+.alert-title-fail,
+.alert-title-missing {
+  color: #e5534b;
+}
+
+.alert-title-danger,
+.alert-title-error {
+  color: #e5534b;
+}
+
+.alert-title-bug {
+  color: #e5534b;
+}
+
+.alert-title-example {
+  color: #986ee2;
+}
+
+.alert-title-quote,
+.alert-title-cite {
+  color: #9ca3af;
+}
+
+.alert-icon-note {
+  fill: #478be6;
+}
+
+.alert-icon-tip {
+  fill: #57ab5a;
+}
+
+.alert-icon-info {
+  fill: #93c5fd;
+}
+
+.alert-icon-important {
+  fill: #986ee2;
+}
+
+.alert-icon-warning {
+  fill: #c69026;
+}
+
+.alert-icon-caution {
+  fill: #e5534b;
+}
+
+.alert-icon-abstract,
+.alert-icon-summary,
+.alert-icon-tldr {
+  fill: #00bfff;
+}
+
+.alert-icon-todo {
+  fill: #478be6;
+}
+
+.alert-icon-success,
+.alert-icon-done {
+  fill: #57ab5a;
+}
+
+.alert-icon-question,
+.alert-icon-help,
+.alert-icon-faq {
+  fill: #c69026;
+}
+
+.alert-icon-failure,
+.alert-icon-fail,
+.alert-icon-missing {
+  fill: #e5534b;
+}
+
+.alert-icon-danger,
+.alert-icon-error {
+  fill: #e5534b;
+}
+
+.alert-icon-bug {
+  fill: #e5534b;
+}
+
+.alert-icon-example {
+  fill: #986ee2;
+}
+
+.alert-icon-quote,
+.alert-icon-cite {
+  fill: #9ca3af;
+}
+
+/* ==================== 学术环境（定理、引理、定义等） ==================== */
+.alert-title-theorem,
+.alert-title-lemma,
+.alert-title-corollary,
+.alert-title-proposition {
+  color: #986ee2;
+}
+
+.alert-title-definition {
+  color: #57ab5a;
+}
+
+.alert-title-axiom,
+.alert-title-postulate,
+.alert-title-assumption {
+  color: #478be6;
+}
+
+.alert-title-proof {
+  color: #9ca3af;
+}
+
+.alert-title-remark {
+  color: #c69026;
+}
+
+.alert-icon-theorem,
+.alert-icon-lemma,
+.alert-icon-corollary,
+.alert-icon-proposition {
+  fill: #986ee2;
+}
+
+.alert-icon-definition {
+  fill: #57ab5a;
+}
+
+.alert-icon-axiom,
+.alert-icon-postulate,
+.alert-icon-assumption {
+  fill: #478be6;
+}
+
+.alert-icon-proof {
+  fill: #9ca3af;
+}
+
+.alert-icon-remark {
+  fill: #c69026;
+}
+
+.markdown-alert-theorem,
+.markdown-alert-lemma,
+.markdown-alert-corollary,
+.markdown-alert-proposition {
+  border: 1px solid rgba(152, 110, 226, 0.35);
+  border-left: 4px solid #986ee2;
+}
+
+.markdown-alert-definition {
+  border: 1px solid rgba(87, 171, 90, 0.35);
+  border-left: 4px solid #57ab5a;
+}
+
+.markdown-alert-axiom,
+.markdown-alert-postulate,
+.markdown-alert-assumption {
+  border: 1px solid rgba(71, 139, 230, 0.35);
+  border-left: 4px solid #478be6;
+}
+
+.markdown-alert-proof {
+  border: 1px solid rgba(156, 163, 175, 0.35);
+  border-left: 4px solid #9ca3af;
+}
+
+.markdown-alert-remark {
+  border: 1px solid rgba(198, 144, 38, 0.35);
+  border-left: 4px solid #c69026;
+}
+
+/* 自定义/未知名称的兜底样式：使用 Claude 黏土橙 */
+.alert-title-custom {
+  color: #cc785c;
+}
+
+.markdown-alert-custom {
+  border-left: 4px solid #cc785c;
+}
+
+.markdown-alert-theorem > :not(.markdown-alert-title),
+.markdown-alert-lemma > :not(.markdown-alert-title),
+.markdown-alert-corollary > :not(.markdown-alert-title),
+.markdown-alert-proposition > :not(.markdown-alert-title),
+.markdown-alert-definition > :not(.markdown-alert-title),
+.markdown-alert-axiom > :not(.markdown-alert-title),
+.markdown-alert-postulate > :not(.markdown-alert-title),
+.markdown-alert-assumption > :not(.markdown-alert-title) {
+  font-style: italic;
+}
+
+/* ==================== 代码块 ==================== */
+pre.code__pre,
+.hljs.code__pre {
+  font-size: 90%;
+  overflow-x: auto;
+  border-radius: 8px;
+  padding: 0 !important;
+  line-height: 1.5;
+  margin: 1.2em 8px;
+}
+
+/* ==================== 图片 ==================== */
+img {
+  display: block;
+  max-width: 100%;
+  margin: 0.4em auto 0.6em;
+  border-radius: 6px;
+}
+
+/* ==================== 列表 ==================== */
+/* 注：序号/项目符号由渲染器写入文本（"1. "、"• "），
+ * 因此这里用 display:block 关闭原生 marker，避免出现 "1. 1." 重复。 */
+ol {
+  padding-left: 1em;
+  margin-left: 0;
+  color: #31312f;
+}
+
+ul {
+  list-style: none;
+  padding-left: 1em;
+  margin-left: 0;
+  color: #31312f;
+}
+
+li {
+  display: block;
+  margin: 0.4em 8px;
+  line-height: 1.75;
+  letter-spacing: 0.12em;
+  color: #31312f;
+}
+
+/* ==================== 脚注 ==================== */
+p.footnotes {
+  margin: 0.5em 8px;
+  font-size: 80%;
+  color: #57534e;
+}
+
+/* ==================== 图表 ==================== */
+figure {
+  margin: 1.5em 8px;
+  color: #31312f;
+}
+
+figcaption,
+.md-figcaption {
+  text-align: center;
+  color: #8a7f72;
+  font-size: 0.8em;
+}
+
+/* ==================== 分隔线 ==================== */
+hr {
+  border: none;
+  height: 1px;
+  background: #e5e1d6;
+  margin: 2.4em auto;
+  width: 100%;
+  transform: none;
+}
+
+/* ==================== 行内代码 ==================== */
+.codespan {
+  font-size: 90%;
+  color: #b05a3e;
+  background: rgba(204, 120, 92, 0.1);
+  padding: 3px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(204, 120, 92, 0.22);
+}
+
+pre.code__pre > code,
+.hljs.code__pre > code {
+  display: -webkit-box;
+  padding: 0.5em 1em 1em;
+  overflow-x: auto;
+  text-indent: 0;
+  color: inherit;
+  background: none;
+  white-space: nowrap;
+  margin: 0;
+}
+
+/* ==================== 强调 ==================== */
+em {
+  font-style: italic;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* ==================== 链接 ==================== */
+a {
+  color: #b05a3e;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(176, 90, 62, 0.4);
+}
+
+/* ==================== 粗体 ==================== */
+strong {
+  color: #141413;
+  font-weight: 700;
+  font-size: inherit;
+}
+
+/* ==================== 表格 ==================== */
+table {
+  color: #31312f;
+  border-collapse: collapse;
+}
+
+thead {
+  font-weight: bold;
+  color: #141413;
+}
+
+th {
+  border: 1px solid rgba(204, 120, 92, 0.25);
+  padding: 0.4em 0.7em;
+  color: #141413;
+  word-break: keep-all;
+  background: #fbf9f4;
+}
+
+td {
+  border: 1px solid rgba(26, 23, 20, 0.12);
+  padding: 0.4em 0.7em;
+  color: #31312f;
+  word-break: keep-all;
+}
+
+/* ==================== KaTeX 公式 ==================== */
+.katex-inline {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.katex-block {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.5em 0;
+  text-align: center;
+}
+
+/* ==================== 标记高亮 ==================== */
+.markup-highlight {
+  background-color: rgba(204, 120, 92, 0.22);
+  padding: 2px 4px;
+  border-radius: 2px;
+  color: #7a3a22;
+}
+
+.markup-underline {
+  text-decoration: underline;
+  text-decoration-color: #cc785c;
+}
+
+.markup-wavyline {
+  text-decoration: underline wavy;
+  text-decoration-color: #cc785c;
+  text-decoration-thickness: 2px;
+}

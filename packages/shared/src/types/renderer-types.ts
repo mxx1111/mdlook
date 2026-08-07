@@ -1,0 +1,24 @@
+import type { ReadTimeResults } from '../utils/readingTime'
+import type { IOpts } from './common'
+import type { FrontMatterData } from './front-matter'
+
+export interface RendererAPI {
+  /* —— 生命周期 —— */
+  reset: (newOpts: Partial<IOpts>) => void
+  setOptions: (newOpts: Partial<IOpts>) => void
+  getOpts: () => IOpts
+
+  /* —— Markdown 处理 —— */
+  parseFrontMatterAndContent: (markdown: string) => {
+    yamlData: FrontMatterData
+    markdownContent: string
+    readingTime: ReadTimeResults
+  }
+  renderMarkdownToHtml: (markdown: string) => string
+
+  /* —— HTML 拼装 —— */
+  buildReadingTime: (reading: ReadTimeResults) => string
+  buildFootnotes: () => string
+  buildAddition: () => string
+  createContainer: (html: string) => string
+}
