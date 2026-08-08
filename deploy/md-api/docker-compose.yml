@@ -1,0 +1,22 @@
+services:
+  md-api:
+    build:
+      context: ../..
+      dockerfile: apps/api/Dockerfile
+    image: mdlook-api:latest
+    container_name: mdlook-api
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      PORT: '8787'
+      APP_URL: 'http://localhost:5173,http://127.0.0.1:5173,https://your-domain.example'
+      UPLOAD_ENABLED: 'true'
+      UPLOAD_BACKEND: local
+      UPLOAD_LOCAL_DIR: /data/uploads
+      UPLOAD_LOCAL_PUBLIC_URL: https://your-domain.example/uploads
+    ports:
+      - '127.0.0.1:8787:8787'
+    volumes:
+      # 把左侧换成你宿主机上的持久化目录
+      - ./data/uploads:/data/uploads

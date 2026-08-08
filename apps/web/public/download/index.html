@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#f7f4ef" />
+    <meta name="description" content="下载 mdlook Mac 版：专注 Markdown 写作、实时预览与微信公众号排版。" />
+    <title>下载 mdlook Mac 版</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f7f4ef;
+        --surface: rgba(255, 255, 255, 0.82);
+        --ink: #252421;
+        --muted: #706d67;
+        --line: rgba(37, 36, 33, 0.12);
+        --accent: #d97757;
+        --accent-dark: #b9573a;
+        --success: #177b57;
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Hiragino Sans GB',
+          'Microsoft YaHei', sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        color: var(--ink);
+        background: radial-gradient(circle at 10% 4%, rgba(217, 119, 87, 0.18), transparent 32rem),
+          radial-gradient(circle at 88% 22%, rgba(78, 140, 118, 0.12), transparent 28rem), var(--paper);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .shell {
+        width: min(1040px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 24px 0 56px;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 760;
+        letter-spacing: -0.02em;
+      }
+
+      .brand img {
+        width: 38px;
+        height: 38px;
+        border-radius: 11px;
+        box-shadow: 0 8px 24px rgba(108, 59, 42, 0.16);
+      }
+
+      .back-link {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 14px;
+      }
+
+      .back-link:hover {
+        color: var(--ink);
+      }
+
+      main {
+        padding-top: clamp(56px, 9vw, 104px);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        min-height: 30px;
+        padding: 0 12px;
+        border: 1px solid rgba(217, 119, 87, 0.28);
+        border-radius: 999px;
+        color: var(--accent-dark);
+        background: rgba(255, 255, 255, 0.68);
+        font-size: 13px;
+        font-weight: 650;
+      }
+
+      h1 {
+        max-width: 760px;
+        margin: 22px 0 18px;
+        font-size: clamp(42px, 8vw, 76px);
+        line-height: 1.04;
+        letter-spacing: -0.055em;
+      }
+
+      .lead {
+        max-width: 690px;
+        margin: 0;
+        color: var(--muted);
+        font-size: clamp(17px, 2.5vw, 21px);
+        line-height: 1.8;
+      }
+
+      .release-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 42px;
+      }
+
+      .release-card {
+        display: flex;
+        min-height: 250px;
+        flex-direction: column;
+        padding: 26px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: var(--surface);
+        box-shadow: 0 22px 70px rgba(68, 58, 49, 0.08);
+        backdrop-filter: blur(18px);
+      }
+
+      .release-card.recommended {
+        border-color: rgba(217, 119, 87, 0.38);
+      }
+
+      .card-top {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .card-top h2 {
+        margin: 0;
+        font-size: 22px;
+        letter-spacing: -0.025em;
+      }
+
+      .badge {
+        flex: none;
+        padding: 5px 9px;
+        border-radius: 999px;
+        color: var(--success);
+        background: rgba(23, 123, 87, 0.1);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .meta {
+        margin: 11px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.65;
+      }
+
+      .download {
+        display: inline-flex;
+        min-height: 50px;
+        align-items: center;
+        justify-content: center;
+        margin-top: auto;
+        padding: 0 20px;
+        border-radius: 13px;
+        color: #fff;
+        background: var(--ink);
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 720;
+        transition: transform 160ms ease, background 160ms ease;
+      }
+
+      .download:hover {
+        transform: translateY(-1px);
+        background: #000;
+      }
+
+      .checksum {
+        margin: 14px 0 0;
+        color: var(--muted);
+        font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+        font-size: 11px;
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+      }
+
+      .info {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1px;
+        margin-top: 18px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--line);
+      }
+
+      .info article {
+        min-height: 145px;
+        padding: 22px;
+        background: rgba(255, 255, 255, 0.74);
+      }
+
+      .info h3 {
+        margin: 0 0 9px;
+        font-size: 15px;
+      }
+
+      .info p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .loading,
+      .error {
+        grid-column: 1 / -1;
+        padding: 28px;
+        border: 1px dashed var(--line);
+        border-radius: 18px;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 32px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      @media (max-width: 720px) {
+        .shell {
+          width: min(100% - 24px, 560px);
+          padding-top: max(16px, env(safe-area-inset-top));
+        }
+
+        main {
+          padding-top: 52px;
+        }
+
+        h1 {
+          font-size: clamp(40px, 13vw, 58px);
+        }
+
+        .release-grid,
+        .info {
+          grid-template-columns: 1fr;
+        }
+
+        .release-card {
+          min-height: 236px;
+          padding: 22px;
+        }
+
+        footer {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <nav aria-label="主导航">
+        <a class="brand" href="/">
+          <img src="/mpmd/icon-256.png" alt="" />
+          <span>mdlook</span>
+        </a>
+        <a class="back-link" href="/">返回网页版 →</a>
+      </nav>
+
+      <main>
+        <span class="eyebrow" id="release-label">Mac 正式版</span>
+        <h1>把舒服的写作体验，带到每一台 Mac。</h1>
+        <p class="lead">
+          本地文件、实时预览、公众号排版和私有文风润色都在同一处完成。 下载后拖入“应用程序”即可开始使用。
+        </p>
+
+        <section class="release-grid" id="release-grid" aria-live="polite">
+          <div class="loading">正在读取最新版本…</div>
+        </section>
+
+        <section class="info" aria-label="安装说明">
+          <article>
+            <h3>支持哪些 Mac？</h3>
+            <p>当前提供 Apple 芯片版，适用于 M1、M2、M3、M4 及后续 M 系列 Mac。</p>
+          </article>
+          <article>
+            <h3>首次打开</h3>
+            <p>
+              当前版本已做完整性签名，但尚未经过 Apple 公证。若系统拦截，请在“系统设置 → 隐私与安全性”中选择“仍要打开”。
+            </p>
+          </article>
+          <article>
+            <h3>你的内容在哪？</h3>
+            <p>本地文件仍保存在你选择的位置；未保存的新文章先进入可恢复草稿。登录后可同步个人配置与云草稿。</p>
+          </article>
+        </section>
+      </main>
+
+      <footer>
+        <span>mdlook · 专注写作、排版与发布</span>
+        <span>Apple 芯片 · 建议使用 macOS 11 及以上版本</span>
+      </footer>
+    </div>
+
+    <script>
+      const grid = document.querySelector('#release-grid')
+      const label = document.querySelector('#release-label')
+
+      function escapeHtml(value) {
+        return String(value)
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#039;')
+      }
+
+      function renderRelease(release) {
+        label.textContent = `Mac ${release.version} · ${release.releasedAt}`
+        grid.innerHTML = release.files
+          .map(
+            (file) => `
+          <article class="release-card ${file.recommended ? 'recommended' : ''}">
+            <div class="card-top">
+              <div>
+                <h2>${escapeHtml(file.label)}</h2>
+                <p class="meta">${escapeHtml(file.description)}<br>${escapeHtml(file.size)}</p>
+              </div>
+              ${file.recommended ? '<span class="badge">推荐</span>' : ''}
+            </div>
+            <a class="download" href="${encodeURI(file.url)}" download>
+              下载 DMG
+            </a>
+            <p class="checksum">SHA-256<br>${escapeHtml(file.sha256)}</p>
+          </article>
+        `,
+          )
+          .join('')
+      }
+
+      fetch('./latest.json', { cache: 'no-store' })
+        .then((response) => {
+          if (!response.ok) throw new Error(`HTTP ${response.status}`)
+          return response.json()
+        })
+        .then(renderRelease)
+        .catch(() => {
+          grid.innerHTML = '<div class="error">暂时无法读取下载信息，请稍后刷新页面。</div>'
+        })
+    </script>
+  </body>
+</html>
