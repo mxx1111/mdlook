@@ -19,7 +19,7 @@
     "hono": "^4.12.25"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "4.20260613.1",
+    "@cloudflare/workers-types": "5.20260808.1",
     "@types/node": "^25.9.3",
     "esbuild": "^0.28.1",
     "typescript": "~6.0.3",
