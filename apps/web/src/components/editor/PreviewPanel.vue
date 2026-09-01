@@ -1,0 +1,314 @@
+<script setup lang="ts">
+import type { DiagramDownloadOverlay } from '@/utils/diagramDownload'
+import { highlightPendingBlocks, hljs } from '@md/core'
+import { useRenderStore } from '@/stores/render'
+import { useThemeStore } from '@/stores/theme'
+import { useUIStore } from '@/stores/ui'
+import { setupDiagramDownloadOverlay } from '@/utils/diagramDownload'
+
+const props = defineProps<{
+  backLight: boolean
+  isCoping: boolean
+  onContentClick: (event: MouseEvent) => void
+}>()
+
+const renderStore = useRenderStore()
+const uiStore = useUIStore()
+const themeStore = useThemeStore()
+
+const { output } = storeToRefs(renderStore)
+const { isMobile, viewMode, previewDevice } = storeToRefs(uiStore)
+const { theme } = storeToRefs(themeStore)
+
+const effectivePreviewWidth = computed(() => {
+  if (isMobile.value)
+    return `w-full`
+  return previewDevice.value === `mobile` ? `w-[375px]` : `w-full`
+})
+
+const previewRef = useTemplateRef<HTMLDivElement>(`previewRef`)
+
+watch(output, () => {
+  nextTick(() => {
+    const outputElement = document.getElementById(`output`)
+    if (outputElement) {
+      highlightPendingBlocks(hljs, outputElement)
+    }
+  })
+})
+
+let diagramOverlay: DiagramDownloadOverlay | null = null
+
+// Pause bar injection for the entire duration of isCoping so that
+// processClipboardContent mutations never re-inject bars, and resume
+// after the copy pipeline resets the DOM.
+watch(() => props.isCoping, (coping) => {
+  if (coping) {
+    diagramOverlay?.pause()
+  }
+  else {
+    nextTick(() => diagramOverlay?.resume())
+  }
+})
+
+onMounted(() => {
+  nextTick(() => {
+    const outputEl = document.getElementById(`output`)
+    if (outputEl) {
+      diagramOverlay = setupDiagramDownloadOverlay(outputEl)
+    }
+  })
+})
+
+onUnmounted(() => {
+  diagramOverlay?.cleanup()
+})
+
+defineExpose({
+  previewRef,
+})
+</script>
+
+<template>
+  <div v-show="viewMode !== 'edit'" class="relative h-full overflow-x-hidden">
+    <div
+      id="preview"
+      ref="previewRef"
+      class="preview-wrapper w-full p-5 flex justify-center"
+      :class="{ 'theme-claude-bg': theme === 'claude' }"
+    >
+      <div
+        id="output-wrapper"
+        class="w-full max-w-full"
+        :class="{ output_night: !backLight }"
+      >
+        <div
+          class="preview border-x shadow-xl mx-auto"
+          :class="[
+            effectivePreviewWidth,
+            effectivePreviewWidth === 'w-[375px]' ? 'max-w-full' : '',
+            previewDevice === 'desktop' ? 'preview--desktop' : 'preview--phone',
+          ]"
+        >
+          <section id="output" class="w-full" @click="onContentClick" v-html="output" />
+          <div v-if="isCoping" class="loading-mask">
+            <div class="loading-mask-box">
+              <div class="loading__img" />
+              <span>正在生成</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <BackTop
+        target="preview"
+        :right="isMobile ? 24 : 20"
+        :bottom="isMobile ? 90 : 20"
+      />
+    </div>
+  </div>
+</template>
+
+<style lang="less" scoped>
+@import url('../../assets/less/app.less');
+</style>
+
+<style lang="less" scoped>
+#output-wrapper {
+  position: relative;
+  user-select: text;
+  height: 100%;
+}
+
+.loading-mask {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  color: hsl(var(--foreground));
+  background-color: hsl(var(--background));
+
+  .loading-mask-box {
+    position: sticky;
+    top: 50%;
+    transform: translateY(-50%);
+
+    .loading__img {
+      width: 75px;
+      height: 75px;
+      background: url('../../assets/images/favicon.png') no-repeat;
+      margin: 1em auto;
+      background-size: cover;
+    }
+  }
+}
+
+.preview-wrapper {
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Claude 主题：整个预览区满铺米白，文章卡片融入背景（含暗色模式覆盖） */
+.preview-wrapper.theme-claude-bg {
+  background-color: #f7f4ee;
+
+  :deep(.preview) {
+    background-color: #f7f4ee !important;
+    box-shadow: none !important;
+    border-left: none !important;
+    border-right: none !important;
+  }
+}
+
+:deep(.preview-table) {
+  border-spacing: 0;
+}
+</style>
+
+<style>
+html.is-tauri .preview-wrapper {
+  padding: 24px;
+  background: hsl(var(--muted) / 0.28);
+}
+
+html.is-tauri .preview.preview--desktop {
+  width: 100%;
+  max-width: none;
+  min-height: calc(100% - 8px);
+  padding: 36px 44px 96px;
+  border: 1px solid hsl(var(--border) / 0.85);
+  border-radius: 12px;
+  background: hsl(var(--background));
+  font-size: 16px;
+  line-height: 1.8;
+  box-shadow: 0 14px 40px rgb(15 23 42 / 0.08);
+}
+
+html.is-tauri .preview.preview--phone {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .preview-wrapper {
+    align-items: flex-start;
+  }
+
+  .preview-wrapper .preview {
+    padding: 20px 18px 88px !important;
+    font-size: 16px !important;
+    line-height: 1.75 !important;
+  }
+
+  .preview-wrapper .preview pre,
+  .preview-wrapper .preview .katex-display {
+    max-width: 100%;
+    overflow-x: auto !important;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .preview-wrapper .preview table {
+    display: block !important;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Diagram download overlay — unscoped to affect v-html content */
+.mermaid-diagram,
+.plantuml-diagram {
+  position: relative;
+}
+
+.diagram-download-bar {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s 0.18s;
+}
+
+.mermaid-diagram:hover .diagram-download-bar,
+.plantuml-diagram:hover .diagram-download-bar,
+.mermaid-diagram:focus-within .diagram-download-bar,
+.plantuml-diagram:focus-within .diagram-download-bar {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s;
+}
+
+.diagram-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 9px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.88);
+  color: #444;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1), 0 0 0 0.5px rgba(0, 0, 0, 0.06);
+  transition: background 0.15s ease, box-shadow 0.15s ease, color 0.15s ease, transform 0.1s ease;
+  user-select: none;
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.diagram-download-btn:hover {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.14), 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+  color: #111;
+}
+
+.diagram-download-btn:active {
+  transform: scale(0.95);
+}
+
+.diagram-download-btn:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.diagram-btn-loading {
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+}
+
+/* Dark mode */
+.output_night .diagram-download-btn {
+  background: rgba(30, 32, 38, 0.88);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #b8bcc8;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4), 0 0 0 0.5px rgba(255, 255, 255, 0.04);
+}
+
+.output_night .diagram-download-btn:hover {
+  background: rgba(50, 53, 62, 0.96);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+</style>
