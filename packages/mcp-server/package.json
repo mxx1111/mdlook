@@ -14,9 +14,9 @@
   "dependencies": {
     "@md/core": "workspace:*",
     "@md/shared": "workspace:*",
-    "@modelcontextprotocol/sdk": "^1.29.0",
-    "tsx": "^4.22.4",
-    "zod": "^4.4.3"
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "tsx": "^4.23.13",
+    "zod": "^4.6.2"
   },
   "devDependencies": {
     "@types/node": "^25.9.3",
