@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title">
+  <title id="title">mdlook</title>
+  <rect width="256" height="256" rx="56" fill="#dc7857" />
+  <path
+    fill="#fff"
+    d="M45 91a14 14 0 0 1 26-7l22 44 22-44a14 14 0 0 1 26 7v70a14 14 0 0 1-27 6l-8 16a14 14 0 0 1-26 0l-8-16a14 14 0 0 1-27-6V91Z"
+  />
+  <path fill="#fff" d="M181 88a13 13 0 0 1 26 0v40h17l-30 46-30-46h17V88Z" />
+</svg>

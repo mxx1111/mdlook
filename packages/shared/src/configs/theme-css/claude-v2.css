@@ -1,0 +1,325 @@
+/**
+ * Claude V2 主题（现代阅读流）
+ * 暖米白纸面 #faf9f5 + 砖红 #c6533e + 墨黑 #171715，无衬线标题，紧凑行距。
+ * 内容块（表头 / 引用 / 单元格 / 行内代码）沿用参考排版的原色，在米白纸面上形成层次。
+ * 与 Claude 主题的差别：标题不用衬线、正文零字距、表头深色实底、引用块带浅灰底。
+ * 强调色直接写入，选中即为完整风格，无需再调主色。
+ * 注：default.css 永远作为底座，本文件需显式覆盖其装饰（h2 橙底 / h3 橙左线 / hr transform 等）。
+ * 按 Alt/Option + Shift + F 可格式化。
+ */
+
+/* ==================== 容器：暖米白底 ==================== */
+#output,
+.container {
+  background: #faf9f5;
+  padding: 18px 0;
+  color: #262624;
+  box-sizing: border-box;
+}
+
+/* ==================== 一级标题 ==================== */
+h1 {
+  display: block;
+  padding: 0 0 0.45em;
+  border: none;
+  border-bottom: 2px solid #20201e;
+  background: transparent;
+  margin: 1.4em 8px 1.1em;
+  color: #171715;
+  font-size: calc(var(--md-font-size) * 1.5);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+/* ==================== 二级标题：上方细分隔线 ==================== */
+h2 {
+  display: block;
+  padding: 0.7em 0 0;
+  border: none;
+  border-top: 1px solid #bdb9b0;
+  border-radius: 0;
+  background: transparent;
+  margin: 2.3em 8px 1em;
+  color: #171715;
+  font-size: calc(var(--md-font-size) * 1.33);
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+/* ==================== 三级标题：砖红左标 ==================== */
+h3 {
+  display: block;
+  padding: 0 0 0 0.7em;
+  border: none;
+  border-left: 4px solid #c6533e;
+  background: transparent;
+  margin: 2.1em 8px 1.05em;
+  color: #171715;
+  font-size: calc(var(--md-font-size) * 1.13);
+  font-weight: 700;
+  line-height: 1.55;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+/* ==================== 四级标题 ==================== */
+h4 {
+  margin: 1.7em 8px 0.5em;
+  color: #2f2f2c;
+  font-size: calc(var(--md-font-size) * 1.02);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+/* ==================== 五级标题 ==================== */
+h5 {
+  margin: 1.5em 8px 0.45em;
+  color: #4a4741;
+  font-size: calc(var(--md-font-size) * 0.98);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* ==================== 六级标题 ==================== */
+h6 {
+  margin: 1.3em 8px 0.4em;
+  color: #77746d;
+  font-size: calc(var(--md-font-size) * 0.94);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* ==================== 段落：零字距、紧凑段间距 ==================== */
+p {
+  margin: 0 8px 1.05em;
+  line-height: 1.8;
+  letter-spacing: 0;
+  color: #262624;
+}
+
+/* ==================== 引用块：浅灰底 + 砖红左边 ==================== */
+blockquote {
+  font-style: normal;
+  padding: 1.05em 1.2em;
+  border: none;
+  border-left: 4px solid #c6533e;
+  border-radius: 0;
+  background: #f3f2ef;
+  color: #292927;
+  margin: 1.7em 8px;
+}
+
+blockquote > p {
+  display: block;
+  font-size: 1em;
+  line-height: 1.8;
+  letter-spacing: 0;
+  color: #292927;
+  margin: 0;
+}
+
+blockquote > p + p {
+  margin-top: 0.8em;
+}
+
+/* ==================== 列表 ==================== */
+/* 注：序号/项目符号由渲染器写入文本（"1. "、"• "），
+ * 因此这里用 display:block 关闭原生 marker，避免出现 "1. 1." 重复。 */
+ul {
+  list-style: none;
+  padding-left: 1.2em;
+  margin: 0 0 1.45em;
+  color: #262624;
+}
+
+ol {
+  padding-left: 1.3em;
+  margin: 0 0 1.45em;
+  color: #262624;
+}
+
+li {
+  display: block;
+  margin: 0.4em 8px;
+  line-height: 1.8;
+  letter-spacing: 0;
+  color: #262624;
+}
+
+/* 嵌套列表不重复留白 */
+li > ul,
+li > ol {
+  margin: 0.4em 0 0;
+}
+
+/* ==================== 表格：深色表头 ==================== */
+/* 注：base.css 给表格加了 min-width: 100%，配合左右外边距会溢出容器，这里改成
+ * 与容器同宽、不带横向外边距，和参考排版一致。 */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 0;
+  margin: 1.85em 0;
+  color: #262624;
+  font-size: 0.8em;
+  line-height: 1.65;
+}
+
+thead {
+  font-weight: 700;
+  color: #f7f5ef;
+}
+
+th {
+  padding: 0.83em 0.67em;
+  border: 1px solid #bbb8b0;
+  background: #20201e;
+  color: #f7f5ef;
+  font-weight: 700;
+  text-align: left;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+td {
+  padding: 0.83em 0.67em;
+  border: 1px solid #cbc8c0;
+  background: #fff;
+  color: #2a2a28;
+  vertical-align: top;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+/* ==================== 行内代码：无边框灰底 ==================== */
+.codespan {
+  padding: 2px 5px;
+  border: none;
+  border-radius: 3px;
+  background: #efeeea;
+  color: #9f3d2f;
+  font-family: Menlo, Monaco, Consolas, monospace;
+  font-size: 0.87em;
+}
+
+/* ==================== 代码块 ==================== */
+/* 背景交由所选代码高亮主题决定，这里只管外框与间距 */
+pre.code__pre,
+.hljs.code__pre {
+  font-size: 88%;
+  overflow-x: auto;
+  border: 1px solid #2f2f2d;
+  border-radius: 4px;
+  padding: 0 !important;
+  line-height: 1.75;
+  margin: 1.85em 8px;
+}
+
+pre.code__pre > code,
+.hljs.code__pre > code {
+  display: -webkit-box;
+  padding: 0.9em 1.1em;
+  overflow-x: auto;
+  text-indent: 0;
+  color: inherit;
+  background: none;
+  white-space: nowrap;
+  margin: 0;
+}
+
+/* ==================== 强调 / 链接 / 粗体 ==================== */
+em {
+  font-style: italic;
+  font-size: inherit;
+  color: inherit;
+}
+
+a {
+  color: #b84735;
+  text-decoration: underline dashed;
+  text-underline-offset: 4px;
+  border-bottom: none;
+  overflow-wrap: anywhere;
+}
+
+strong {
+  color: #a44838;
+  font-weight: 700;
+  font-size: inherit;
+}
+
+/* ==================== 图片 ==================== */
+img {
+  display: block;
+  max-width: 100%;
+  margin: 1.2em auto;
+  border-radius: 4px;
+}
+
+/* ==================== 分隔线 ==================== */
+hr {
+  border: none;
+  height: 1px;
+  background: #d9d5cc;
+  margin: 2.4em auto;
+  width: 100%;
+  transform: none;
+}
+
+/* 二级标题自带上分隔线，紧跟 --- 时不再重复画线 */
+hr + h2 {
+  padding-top: 0;
+  border-top: none;
+  margin-top: 1.2em;
+}
+
+/* ==================== 脚注 / 图注 ==================== */
+p.footnotes {
+  margin: 0.5em 8px;
+  font-size: 80%;
+  color: #77746d;
+}
+
+figure {
+  margin: 1.6em 8px;
+  color: #262624;
+}
+
+figcaption,
+.md-figcaption {
+  text-align: center;
+  color: #8f8b83;
+  font-size: 0.8em;
+}
+
+/* ==================== GFM 自定义警告块兜底 ==================== */
+.alert-title-custom {
+  color: #c6533e;
+}
+
+.markdown-alert-custom {
+  border-left: 4px solid #c6533e;
+}
+
+/* ==================== 标记高亮 ==================== */
+.markup-highlight {
+  background-color: rgba(198, 83, 62, 0.16);
+  padding: 2px 4px;
+  border-radius: 2px;
+  color: #8f3323;
+}
+
+.markup-underline {
+  text-decoration: underline;
+  text-decoration-color: #c6533e;
+}
+
+.markup-wavyline {
+  text-decoration: underline wavy;
+  text-decoration-color: #c6533e;
+  text-decoration-thickness: 2px;
+}

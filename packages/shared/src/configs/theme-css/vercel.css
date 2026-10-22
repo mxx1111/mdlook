@@ -1,0 +1,219 @@
+/**
+ * Vercel 主题（仿 vercel.com / Geist 风格）
+ * 冷调白底 #fafafa + 纯黑 #000 + 极简灰线，无衬线，几何精准。
+ * 强调色直接写入，选中即为完整风格，无需再调主色。
+ * 注：default.css 永远作为底座，本文件需显式覆盖其装饰（h2 橙底 / h3 橙左线 / hr transform 等）。
+ * 按 Alt/Option + Shift + F 可格式化。
+ */
+
+/* ==================== 容器：冷调白 ==================== */
+#output,
+.container {
+  background: #fafafa;
+  padding: 18px 0;
+  color: #171717;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ==================== 一级标题 ==================== */
+h1 {
+  display: block;
+  padding: 0 0 0.4em;
+  margin: 1.5em 8px 1.2em;
+  color: #000;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+  font-size: calc(var(--md-font-size) * 1.6);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  text-align: left;
+  border-bottom: 1px solid #eaeaea;
+}
+
+/* ==================== 二级标题 ==================== */
+h2 {
+  display: block;
+  padding: 0 0 0 0.55em;
+  border-left: 4px solid #000;
+  border-radius: 0;
+  background: transparent;
+  margin: 2.2em 8px 1em;
+  color: #000;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+  font-size: calc(var(--md-font-size) * 1.3);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  text-align: left;
+}
+
+/* ==================== 三级标题（下划线只在文字宽度内）==================== */
+h3 {
+  display: table;
+  padding: 0 0 0.3em;
+  border: none;
+  border-bottom: 2px solid #000;
+  background: transparent;
+  margin: 1.9em 8px 0.8em;
+  color: #171717;
+  font-size: calc(var(--md-font-size) * 1.14);
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: left;
+}
+
+/* ==================== 四 / 五 / 六级标题 ==================== */
+h4 {
+  margin: 1.6em 8px 0.45em;
+  color: #404040;
+  font-size: calc(var(--md-font-size) * 1.04);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+h5 {
+  margin: 1.4em 8px 0.4em;
+  color: #525252;
+  font-size: var(--md-font-size);
+  font-weight: 600;
+}
+
+h6 {
+  margin: 1.2em 8px 0.35em;
+  color: #737373;
+  font-size: calc(var(--md-font-size) * 0.94);
+  font-weight: 600;
+}
+
+/* ==================== 段落 ==================== */
+p {
+  margin: 1em 8px;
+  line-height: 1.7;
+  letter-spacing: 0.12em;
+  color: #171717;
+}
+
+/* ==================== 引用块 ==================== */
+blockquote {
+  font-style: normal;
+  padding: 0.2em 0 0.2em 1.1em;
+  border-left: 3px solid #000;
+  border-radius: 0;
+  background: transparent;
+  color: #525252;
+  margin: 1.6em 8px;
+}
+
+blockquote > p {
+  display: block;
+  font-size: 1em;
+  line-height: 1.7;
+  letter-spacing: 0.12em;
+  color: #525252;
+  margin: 0;
+}
+
+/* ==================== 列表 ==================== */
+ol,
+ul {
+  padding-left: 1em;
+  margin-left: 0;
+  color: #171717;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  display: block;
+  margin: 0.4em 8px;
+  line-height: 1.7;
+  letter-spacing: 0.12em;
+  color: #171717;
+}
+
+/* ==================== 分隔线 ==================== */
+hr {
+  border: none;
+  height: 1px;
+  background: #eaeaea;
+  margin: 2.4em auto;
+  width: 100%;
+  transform: none;
+}
+
+/* ==================== 行内代码 ==================== */
+.codespan {
+  font-size: 90%;
+  color: #171717;
+  background: #f1f1f1;
+  padding: 3px 6px;
+  border-radius: 4px;
+  border: 1px solid #e4e4e7;
+}
+
+/* ==================== 强调 / 链接 / 粗体 ==================== */
+em {
+  font-style: italic;
+  color: inherit;
+}
+
+a {
+  color: #0070f3;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 112, 243, 0.35);
+}
+
+strong {
+  color: #000;
+  font-weight: 700;
+}
+
+/* ==================== 图片 ==================== */
+img {
+  display: block;
+  max-width: 100%;
+  margin: 0.4em auto 0.6em;
+  border-radius: 6px;
+}
+
+/* ==================== 表格 ==================== */
+table {
+  color: #171717;
+  border-collapse: collapse;
+}
+
+thead {
+  font-weight: bold;
+  color: #000;
+}
+
+th {
+  border: 1px solid #e4e4e7;
+  padding: 0.4em 0.7em;
+  color: #000;
+  word-break: keep-all;
+  background: #f4f4f5;
+}
+
+td {
+  border: 1px solid #ededed;
+  padding: 0.4em 0.7em;
+  color: #171717;
+  word-break: keep-all;
+}
+
+/* ==================== 标记高亮 ==================== */
+.markup-highlight {
+  background-color: #ffe58f;
+  padding: 2px 4px;
+  border-radius: 2px;
+  color: #171717;
+}
+
+.markup-underline {
+  text-decoration: underline;
+  text-decoration-color: #000;
+}
