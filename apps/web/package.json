@@ -43,7 +43,7 @@
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-dialog": "^2",
     "@vee-validate/yup": "^4.15.1",
-    "@vueuse/core": "^14.3.0",
+    "@vueuse/core": "^15.0.0",
     "browser-image-compression": "^2.0.2",
     "buffer-from": "^1.1.2",
     "class-variance-authority": "^0.7.1",
